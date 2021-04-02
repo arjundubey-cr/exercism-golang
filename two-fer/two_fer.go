@@ -1,15 +1,12 @@
-// This is a "stub" file.  It's a little start on your solution.
-// It's not a complete solution though; you have to write some code.
-
-// Package twofer should have a package comment that summarizes what it's about.
-// https://golang.org/doc/effective_go.html#commentary
+// Package twofer implements a function to return a message.
 package twofer
 
-// ShareWith should have a comment documenting it.
+import "fmt"
+
+// ShareWith method	returns a message, based on arguments passed into it.
 func ShareWith(name string) string {
 	if len(name) == 0 {
-		return "One for you, one for me."
+		name = "you"
 	}
-	response := "One for " + name + ", one for me."
-	return response
+	return fmt.Sprintf("One for %s, one for me.", name)
 }
