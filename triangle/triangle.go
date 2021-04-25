@@ -1,28 +1,32 @@
-// This is a "stub" file.  It's a little start on your solution.
-// It's not a complete solution though; you have to write some code.
-
-// Package triangle should have a package comment that summarizes what it's about.
-// https://golang.org/doc/effective_go.html#commentary
+// Package triangle has a function which determines kind of triangle
 package triangle
 
+import "math"
 
-// Notice KindFromSides() returns this type. Pick a suitable data type.
-type Kind
+type Kind int
 
 const (
-    // Pick values for the following identifiers used by the test program.
-    NaT // not a triangle
-    Equ // equilateral
-    Iso // isosceles
-    Sca // scalene
+	NaT Kind = iota // not a triangle
+	Equ             // equilateral
+	Iso             // isosceles
+	Sca             // scalene
 )
 
-// KindFromSides should have a comment documenting it.
+// KindFromSides is a function which determined kind of triangle on the basis of length of sides.
 func KindFromSides(a, b, c float64) Kind {
-	// Write some code here to pass the test suite.
-	// Then remove all the stock comments.
-	// They're here to help you get started but they only clutter a finished solution.
-	// If you leave them in, reviewers may protest!
-	var k Kind
-	return k
+	for _, side := range [3]float64{a, b, c} {
+		if side <= 0 || math.IsNaN(side) || math.IsInf(side, 0) {
+			return NaT
+		}
+	}
+	switch {
+	case a+b < c || a+c < b || c+b < a:
+		return NaT
+	case a == b && a == c:
+		return Equ
+	case a == b || a == c || b == c:
+		return Iso
+	default:
+		return Sca
+	}
 }
